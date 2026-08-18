@@ -39,11 +39,7 @@ func (s *PlanningService) PlanShipment(ctx context.Context, input PlanShipmentIn
 	if err := domain.ValidateIdempotencyKey(input.IdempotencyKey); err != nil {
 		return domain.Shipment{}, err
 	}
-	hash, err := idempotency.HashFields(
-		input.StudyID, input.OriginSiteID, input.DestinationSiteID,
-		input.ContainerID, input.BatchIDs, input.PlannedDispatchAt,
-		input.ExpectedArrivalAt,
-	)
+	hash, err := idempotency.Hash(input)
 	if err != nil {
 		return domain.Shipment{}, err
 	}

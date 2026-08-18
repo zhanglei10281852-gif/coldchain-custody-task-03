@@ -16,15 +16,6 @@ func Hash(value any) (string, error) {
 	return hex.EncodeToString(sum[:]), nil
 }
 
-func HashFields(values ...any) (string, error) {
-	body, err := json.Marshal(values)
-	if err != nil {
-		return "", fmt.Errorf("encode idempotent fields: %w", err)
-	}
-	sum := sha256.Sum256(body)
-	return hex.EncodeToString(sum[:]), nil
-}
-
 func Encode(value any) ([]byte, error) {
 	body, err := json.Marshal(value)
 	if err != nil {
